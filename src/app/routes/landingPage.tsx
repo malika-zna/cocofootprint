@@ -112,6 +112,7 @@ export default function LandingPage() {
             <div className="flow-icon"><Icon name="bolt" size={24} /></div>
             <h3>Pahami</h3>
             <p>Lihat konsumsi, biaya, serta emisi dalam satu gambaran.</p>
+            <Link to="/dashboard">Lihat Ringkasan <Icon name="chevron" size={15} /></Link>
           </article>
           <article>
             <span>03</span>
@@ -129,7 +130,7 @@ export default function LandingPage() {
           <h2>{highest?.name ?? "Mulai dari satu perangkat."}</h2>
           <p>
             {highest
-              ? `Saat ini menyumbang ${formatNumber((energyFor(highest) / totals.energy) * 100)}% dari estimasi energimu. Coba kurangi durasinya dan lihat perubahan yang mungkin terjadi.`
+              ? `Saat ini menyumbang ${formatNumber((energyFor(highest) / totals.energy) * 100)}% dari estimasi energimu. Coba kurangi jumlah atau durasinya dan lihat perubahan yang mungkin terjadi.`
               : "Tambahkan perangkat pertamamu untuk menemukan sumber konsumsi terbesar."}
           </p>
           <Link className="landing-cta dark" to={highest ? "/simulasi" : "/perangkat?baru=1"}>

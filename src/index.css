@@ -526,7 +526,7 @@ h2 {
 
 .add-form {
   display: grid;
-  grid-template-columns: 1.4fr repeat(3, .7fr);
+  grid-template-columns: 1.4fr repeat(4, .7fr);
   gap: 10px;
   padding: 15px;
   margin-bottom: 15px;
@@ -661,7 +661,7 @@ h2 {
 .device-controls {
   margin-left: 54px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
 
@@ -901,6 +901,10 @@ input[type="range"]::-webkit-slider-thumb {
 
 :root[data-theme="dark"] .saving-result {
   color: #173e32;
+}
+
+:root[data-theme="dark"] .saving-result.increase {
+  color: var(--ink);
 }
 
 .saving-result>span {

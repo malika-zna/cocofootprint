@@ -13,23 +13,24 @@ export default function DevicesPage() {
   const [showForm, setShowForm] = useState(
     () => new URLSearchParams(window.location.search).has("baru"),
   );
-  const [form, setForm] = useState({ name: "", watts: "60", hours: "4", days: "30" });
+  const [form, setForm] = useState({ name: "", count: "1", watts: "60", hours: "4", days: "30" });
 
   function addDevice(device?: Omit<Device, "id" | "hours" | "days">) {
     if (device) {
       setDevices((current) => [...current, { ...device, id: Date.now(), hours: 4, days: 30 }]);
       return;
     }
+    const count = Number(form.count);
     const watts = Number(form.watts);
     const hours = Number(form.hours);
     const days = Number(form.days);
     if (!form.name.trim() || watts <= 0 || hours <= 0 || days <= 0) return;
-    setDevices((current) => [...current, { id: Date.now(), name: form.name.trim(), watts, hours, days, icon: "bolt" }]);
-    setForm({ name: "", watts: "60", hours: "4", days: "30" });
+    setDevices((current) => [...current, { id: Date.now(), name: form.name.trim(), count: count, watts, hours, days, icon: "bolt" }]);
+    setForm({ name: "", count: "1", watts: "60", hours: "4", days: "30" });
     setShowForm(false);
   }
 
-  function updateDevice(id: number, key: "watts" | "hours" | "days", value: number) {
+  function updateDevice(id: number, key: "count" | "watts" | "hours" | "days", value: number) {
     setDevices((current) => current.map((device) => device.id === id ? { ...device, [key]: Math.max(0, value) } : device));
   }
 
@@ -48,6 +49,7 @@ export default function DevicesPage() {
         {showForm && (
           <div className="add-form">
             <label className="wide-field">Nama perangkat<input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Contoh: Rice cooker" autoFocus /></label>
+            <label>Jumlah (Unit)<input type="number" min="1" value={form.count} onChange={(event) => setForm({ ...form, count: event.target.value })} /></label>
             <label>Daya (W)<input type="number" min="1" value={form.watts} onChange={(event) => setForm({ ...form, watts: event.target.value })} /></label>
             <label>Jam/hari<input type="number" min="0.1" max="24" step="0.5" value={form.hours} onChange={(event) => setForm({ ...form, hours: event.target.value })} /></label>
             <label>Hari/bulan<input type="number" min="1" max="31" value={form.days} onChange={(event) => setForm({ ...form, days: event.target.value })} /></label>
@@ -68,6 +70,7 @@ export default function DevicesPage() {
                 </div>
                 <div className="usage-track"><span style={{ width: `${share}%` }}></span></div>
                 <div className="device-controls">
+                  <label>Jumlah <span><input aria-label={`Jumlah ${device.name}`} type="number" value={device.count} onChange={(e) => updateDevice(device.id, "count", Number(e.target.value))} /> Unit</span></label>
                   <label>Daya <span><input aria-label={`Daya ${device.name}`} type="number" value={device.watts} onChange={(e) => updateDevice(device.id, "watts", Number(e.target.value))} /> W</span></label>
                   <label>Durasi <span><input aria-label={`Durasi ${device.name}`} type="number" step="0.5" value={device.hours} onChange={(e) => updateDevice(device.id, "hours", Number(e.target.value))} /> jam/hari</span></label>
                   <label>Frekuensi <span><input aria-label={`Frekuensi ${device.name}`} type="number" value={device.days} onChange={(e) => updateDevice(device.id, "days", Number(e.target.value))} /> hari</span></label>

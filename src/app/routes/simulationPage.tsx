@@ -13,10 +13,17 @@ export default function SimulationPage() {
   const [hours, setHours] = useState<Record<number, number>>(() =>
     Object.fromEntries(devices.map((device) => [device.id, Math.max(0, device.hours - 1)])),
   );
+  const [count, setCount] = useState<Record<number, number>>(() =>
+    Object.fromEntries(devices.map((device) => [device.id, Math.max(0, device.count)])),
+  );
 
   useEffect(() => {
     setHours((current) => ({
       ...Object.fromEntries(devices.map((device) => [device.id, Math.max(0, device.hours - 1)])),
+      ...current,
+    }));
+    setCount((current) => ({
+      ...Object.fromEntries(devices.map((device) => [device.id, Math.max(0, device.count - 1)])),
       ...current,
     }));
   }, [devices]);
@@ -24,9 +31,10 @@ export default function SimulationPage() {
   const changes = devices.map((device) => {
     const isSelected = selected.includes(device.id);
     const nextHours = isSelected ? (hours[device.id] ?? device.hours) : device.hours;
+    const nextCount = isSelected ? (count[device.id] ?? device.count) : device.count;
     const currentEnergy = energyFor(device);
-    const nextEnergy = energyFor(device, nextHours);
-    return { device, isSelected, nextHours, currentEnergy, nextEnergy, saving: currentEnergy - nextEnergy };
+    const nextEnergy = energyFor(device, nextHours, nextCount);
+    return { device, isSelected, nextHours, nextCount, currentEnergy, nextEnergy, saving: currentEnergy - nextEnergy };
   });
   const projectedEnergy = changes.reduce((sum, item) => sum + item.nextEnergy, 0);
   const savedEnergy = totals.energy - projectedEnergy;
@@ -51,7 +59,7 @@ export default function SimulationPage() {
               <button className="text-button" onClick={() => setSelected(selected.length === devices.length ? [] : devices.map((device) => device.id))}>{selected.length === devices.length ? "Batalkan semua" : "Pilih semua"}</button>
             </div>
             <div className="scenario-list">
-              {changes.map(({ device, isSelected, nextHours, currentEnergy, nextEnergy, saving }) => (
+              {changes.map(({ device, isSelected, nextHours, nextCount, currentEnergy, nextEnergy, saving }) => (
                 <article className={`scenario-card ${isSelected ? "selected" : ""}`} key={device.id}>
                   <button className="device-selector" onClick={() => toggleDevice(device.id)} aria-label={`${isSelected ? "Batalkan pilihan" : "Pilih"} ${device.name}`}>
                     <span className="custom-check">{isSelected && <Icon name="check" size={14} />}</span>
@@ -59,8 +67,35 @@ export default function SimulationPage() {
                     <span className="device-name"><strong>{device.name}</strong><small>{device.watts} watt · {device.days} hari/bulan</small></span>
                   </button>
                   <div className="scenario-control">
-                    <div className="hours-heading"><span>Durasi harian</span><strong>{device.hours} jam <Icon name="chevron" size={13} /> {formatNumber(nextHours)} jam</strong></div>
-                    <input disabled={!isSelected} aria-label={`Durasi baru ${device.name}`} type="range" min="0" max="24" step="0.5" value={nextHours} onChange={(event) => setHours({ ...hours, [device.id]: Number(event.target.value) })} style={{ "--progress": `${(nextHours / 24) * 100}%` } as CSSProperties} />
+
+                    <div className="hours-heading">
+                      <span>Durasi harian</span>
+                      <strong>{device.hours} jam
+                        <Icon name="chevron" size={13} />
+                        {formatNumber(nextHours)} jam
+                      </strong>
+                    </div>
+                    <input disabled={!isSelected}
+                      aria-label={`Durasi baru ${device.name}`}
+                      type="range" min="0" max="24" step="0.5"
+                      value={nextHours}
+                      onChange={(event) => setHours({ ...hours, [device.id]: Number(event.target.value) })}
+                      style={{ "--progress": `${(nextHours / 24) * 100}%` } as CSSProperties} />
+
+                    <div className="hours-heading">
+                      <span>Jumlah Perangkat</span>
+                      <strong>{device.count} unit
+                        <Icon name="chevron" size={13} />
+                        {formatNumber(nextCount)} unit
+                      </strong>
+                    </div>
+                    <input disabled={!isSelected}
+                      aria-label={`Jumlah baru ${device.name}`}
+                      type="range" min="0" max="100" step="1"
+                      value={nextCount}
+                      onChange={(event) => setCount({ ...count, [device.id]: Number(event.target.value) })}
+                      style={{ "--progress": `${(nextCount / 100) * 100}%` } as CSSProperties} />
+                      
                     <div className="device-change">
                       <span>{formatNumber(currentEnergy)} kWh</span>
                       <span className={saving >= 0 ? "saving-positive" : "saving-negative"}>{saving >= 0 ? "Hemat" : "Tambah"} {formatNumber(Math.abs(saving))} kWh</span>

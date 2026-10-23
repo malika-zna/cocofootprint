@@ -20,6 +20,7 @@ export type IconName =
 export type Device = {
   id: number;
   name: string;
+  count: number;
   watts: number;
   hours: number;
   days: number;
