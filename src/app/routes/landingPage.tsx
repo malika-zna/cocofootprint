@@ -13,7 +13,7 @@ export default function LandingPage() {
         <div className="landing-hero-top">
           <span className="landing-label">
             <span className="live-dot"></span>
-            Estimator energi personal
+            Kalkulator energi personal
           </span>
           <span className="landing-index">W-01 / 2026</span>
         </div>

@@ -6,11 +6,35 @@ import { Link, NavLink, Outlet } from "react-router";
 import { Icon } from "../shared/icon";
 import type { AppContext } from "./routes";
 
+function isDevice(value: unknown): value is Device {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const device = value as Record<string, unknown>;
+  return (
+    typeof device.id === "number" &&
+    typeof device.name === "string" &&
+    typeof device.count === "number" &&
+    typeof device.watts === "number" &&
+    typeof device.hours === "number" &&
+    typeof device.days === "number" &&
+    typeof device.icon === "string"
+  );
+}
+
 export default function Root() {
   const [devices, setDevices] = useState<Device[]>(() => {
     try {
       const saved = localStorage.getItem("COCO-devices");
-      return saved ? JSON.parse(saved) : starterDevices;
+      if (!saved) {
+        return starterDevices;
+      }
+
+      const parsed: unknown = JSON.parse(saved);
+      return Array.isArray(parsed) && parsed.every(isDevice)
+        ? parsed
+        : starterDevices;
     } catch {
       return starterDevices;
     }
