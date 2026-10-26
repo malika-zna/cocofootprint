@@ -39,9 +39,7 @@ export default function Root() {
       return starterDevices;
     }
   });
-  const [isDark, setIsDark] = useState(
-    () => localStorage.getItem("COCO-theme") === "dark",
-  );
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     localStorage.setItem("COCO-devices", JSON.stringify(devices));
