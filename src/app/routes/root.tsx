@@ -39,9 +39,7 @@ export default function Root() {
       return starterDevices;
     }
   });
-  const [isDark, setIsDark] = useState(
-    () => localStorage.getItem("COCO-theme") !== "light",
-  );
+  const [isDark, setIsDark] = useState("dark");
 
   useEffect(() => {
     localStorage.setItem("COCO-devices", JSON.stringify(devices));
@@ -52,14 +50,12 @@ export default function Root() {
     localStorage.setItem("COCO-theme", isDark ? "dark" : "light");
   }, [isDark]);
 
-  const totals = useMemo(() => {
-    const energy = devices.reduce((sum, item) => sum + energyFor(item), 0);
-    return {
-      energy,
-      emission: energy * EMISSION_FACTOR,
-      cost: energy * ELECTRICITY_TARIFF,
-    };
-  }, [devices]);
+  const energy = devices.reduce((sum, item) => sum + energyFor(item), 0);
+  const totals = {
+    energy,
+    emission: energy * EMISSION_FACTOR,
+    cost: energy * ELECTRICITY_TARIFF,
+  };
 
   return (
     <div className="app-shell">
