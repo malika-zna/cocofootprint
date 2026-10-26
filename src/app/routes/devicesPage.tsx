@@ -49,10 +49,31 @@ export default function DevicesPage() {
         {showForm && (
           <div className="add-form">
             <label className="wide-field">Nama perangkat<input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Contoh: Rice cooker" autoFocus /></label>
-            <label>Jumlah (Unit)<input type="number" min="1" value={form.count} onChange={(event) => setForm({ ...form, count: event.target.value })} /></label>
+            <label>Jumlah (Unit)
+              <input type="number" min="1" max="100" value={form.count} onChange={
+                (event) => {
+                  const clamped = Math.max(1, Math.min(100, Number(event.target.value)));
+                  setForm({ ...form, count: clamped.toString() });
+                }
+              } />
+            </label>
             <label>Daya (W)<input type="number" min="1" value={form.watts} onChange={(event) => setForm({ ...form, watts: event.target.value })} /></label>
-            <label>Jam/hari<input type="number" min="0.1" max="24" step="0.5" value={form.hours} onChange={(event) => setForm({ ...form, hours: event.target.value })} /></label>
-            <label>Hari/bulan<input type="number" min="1" max="31" value={form.days} onChange={(event) => setForm({ ...form, days: event.target.value })} /></label>
+            <label>Jam/hari
+              <input type="number" min="0.1" max="24" step="0.5" value={form.hours} onChange={
+                (event) => {
+                  const clamped = Math.max(1, Math.min(24, Number(event.target.value)));
+                  setForm({ ...form, hours: clamped.toString() });
+                }
+              } />
+            </label>
+            <label>Hari/bulan
+              <input type="number" min="1" max="31" value={form.days} onChange={
+                (event) => {
+                  const clamped = Math.max(1, Math.min(31, Number(event.target.value)));
+                  setForm({ ...form, days: clamped.toString() });
+                }
+              } />
+            </label>
             <div className="form-actions"><button className="ghost-button" onClick={() => setShowForm(false)}>Batal</button><button className="primary-button" onClick={() => addDevice()}>Simpan</button></div>
           </div>
         )}

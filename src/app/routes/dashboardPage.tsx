@@ -14,7 +14,7 @@ export default function DashboardPage() {
       <section className="hero">
         <div className="hero-copy">
           <span className="eyebrow">
-            <Icon name="leaf" size={14} /> Energi lebih bijak, bumi lebih baik
+            Energi lebih bijak, bumi lebih baik
           </span>
           <h1>
             Kenali jejak energi
@@ -91,7 +91,7 @@ export default function DashboardPage() {
             melihat perubahan energi secara rinci.
           </p>
           <Link className="primary-button" to="/simulasi">
-            <Icon name="sparkles" size={17} /> Buat simulasi
+            Buat simulasi
           </Link>
         </article>
       </section>

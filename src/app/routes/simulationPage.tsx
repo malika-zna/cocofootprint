@@ -47,7 +47,7 @@ export default function SimulationPage() {
   return (
     <div className="page-wrap simulation-page">
       <div className="page-heading">
-        <div><span className="eyebrow"><Icon name="sparkles" size={14} /> Skenario personal</span><h1>Simulasi hemat energi</h1><p>Pilih perangkat yang ingin disesuaikan, lalu tentukan durasi baru untuk masing-masing perangkat.</p></div>
+        <div><span className="eyebrow">Skenario personal</span><h1>Simulasi hemat energi</h1><p>Pilih perangkat yang ingin disesuaikan, lalu tentukan durasi baru untuk masing-masing perangkat.</p></div>
       </div>
       {devices.length === 0 ? (
         <section className="empty-page"><Icon name="bulb" size={32} /><h2>Belum ada perangkat untuk disimulasikan</h2><p>Tambahkan minimal satu perangkat terlebih dahulu.</p><Link className="primary-button" to="/perangkat?baru=1">Tambah perangkat</Link></section>

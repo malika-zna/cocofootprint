@@ -15,25 +15,16 @@ export default function LandingPage() {
             <span className="live-dot"></span>
             Kalkulator energi personal
           </span>
-          <span className="landing-index">W-01 / 2026</span>
         </div>
         <div className="landing-title">
           <span>Energi yang</span>
           <strong>tak terlihat,</strong>
           <span>kini terbaca.</span>
         </div>
-        {/* <div className="energy-orb" aria-hidden="true">
-          <div className="orb-ring ring-one"></div>
-          <div className="orb-ring ring-two"></div>
-          <div className="orb-core"><Icon name="bolt" size={42} /></div>
-          <span className="orb-particle particle-one"></span>
-          <span className="orb-particle particle-two"></span>
-          <span className="orb-particle particle-three"></span>
-        </div> */}
         <div className="landing-hero-bottom">
           <p>
             COCO mengubah daya dan waktu menjadi pemahaman agar setiap
-            keputusan energi punya arah yang jelas.
+            pemilihan energi punya arah yang jelas.
           </p>
           <Link className="landing-cta" to="/perangkat">
             Mulai mengukur <span><Icon name="chevron" size={19} /></span>
@@ -57,8 +48,8 @@ export default function LandingPage() {
         <span className="landing-section-number">01 - Mengapa COCO</span>
         <p>
           Kita menggunakan energi setiap hari.
-          <strong> Namun dampaknya sering tidak terlihat.</strong>
-          COCO membuat angka itu nyata tanpa alat tambahan.
+          <strong> Namun, dampaknya sering tidak terlihat.</strong>
+          COCO membuat dampak itu terbaca.
         </p>
         <div className="manifesto-foot">
           <span>Dari watt ke keputusan</span>
@@ -152,7 +143,7 @@ export default function LandingPage() {
           <p>Tanpa video berat.</p>
           <p>Tanpa pelacakan pengguna.</p>
           <p>Data tetap di perangkatmu.</p>
-          <p>Animasi menghormati preferensi sistem.</p>
+          <p>Tema default gelap.</p>
         </div>
       </section>
     </div>
