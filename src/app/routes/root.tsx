@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { starterDevices } from "../shared/starterDevices";
 import { ELECTRICITY_TARIFF, EMISSION_FACTOR, type Device } from "../shared/shared";
 import { energyFor } from "../shared/energyFor";
@@ -39,7 +39,9 @@ export default function Root() {
       return starterDevices;
     }
   });
-  const [isDark, setIsDark] = useState("dark");
+  const [isDark, setIsDark] = useState(
+    () => localStorage.getItem("COCO-theme") === "dark",
+  );
 
   useEffect(() => {
     localStorage.setItem("COCO-devices", JSON.stringify(devices));
