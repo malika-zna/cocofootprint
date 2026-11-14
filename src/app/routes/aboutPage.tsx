@@ -149,7 +149,7 @@ export default function AboutPage() {
 
         <div className="settings-preview">
           <div><span>Untuk setiap 1 kWh</span><strong>{formatCurrency(settings.tariff)}</strong><small>estimasi biaya</small></div>
-          <div><span>Faktor {settings.region}</span><strong>{formatNumber(settings.emissionFactor, 2)} kg</strong><small>estimasi CO₂e</small></div>
+          <div><span>Faktor emisi {settings.region}</span><strong>{formatNumber(settings.emissionFactor, 2)} kg</strong><small>estimasi CO₂e</small></div>
           <button onClick={() => { setSettings(DEFAULT_SETTINGS) }}>Kembalikan nilai awal</button>
         </div>
       </section>

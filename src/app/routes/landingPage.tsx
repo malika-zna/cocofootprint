@@ -33,7 +33,7 @@ export default function LandingPage() {
         <div className="hero-grid-lines" aria-hidden="true"></div>
       </section>
 
-      <div className="energy-ticker" aria-label="Prinsip COCO">
+      <div className="energy-ticker" aria-hidden="true">
         <div className="ticker-track" aria-hidden="true">
           <div className="ticker-item">
             <span>Ukur konsumsi</span><i></i>

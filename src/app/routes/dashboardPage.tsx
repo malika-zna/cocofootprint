@@ -38,12 +38,12 @@ export default function DashboardPage() {
           <div className="hero-logo">
             <img src="/logo_inverted.svg" alt="Logo COCO"></img>
           </div>
-          <div className="floating-leaf leaf-one">
+          {/* <div className="floating-leaf leaf-one">
             <Icon name="leaf" size={24} />
           </div>
           <div className="floating-leaf leaf-two">
             <Icon name="leaf" size={19} />
-          </div>
+          </div> */}
           <div className="mini-stat">
             <span className="stat-dot"></span>
             <div>
