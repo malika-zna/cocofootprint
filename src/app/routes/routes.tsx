@@ -3,7 +3,7 @@ import {
   createBrowserRouter,
   useOutletContext,
 } from "react-router";
-import { type Device } from "../shared/shared";
+import { type Device, type EnergySettings } from "../shared/shared";
 import Root from "./root";
 import LandingPage from "./landingPage";
 import DashboardPage from "./dashboardPage";
@@ -16,6 +16,8 @@ import NotFound from "./notFound";
 export type AppContext = {
   devices: Device[];
   setDevices: Dispatch<SetStateAction<Device[]>>;
+  settings: EnergySettings;
+  setSettings: Dispatch<SetStateAction<EnergySettings>>;
   totals: { energy: number; emission: number; cost: number };
 };
 

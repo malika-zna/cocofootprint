@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { starterDevices } from "../shared/starterDevices";
-import { ELECTRICITY_TARIFF, EMISSION_FACTOR, type Device } from "../shared/shared";
+import { DEFAULT_SETTINGS, EMISSION_FACTORS, type Device, type EnergySettings } from "../shared/shared";
 import { energyFor } from "../shared/energyFor";
 import { Link, NavLink, Outlet } from "react-router";
 import { Icon } from "../shared/icon";
@@ -23,6 +23,25 @@ function isDevice(value: unknown): value is Device {
   );
 }
 
+function isEnergySettings(value: unknown): value is EnergySettings {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const settings = value as Record<string, unknown>;
+
+  return (
+    typeof settings.tariff === "number" &&
+    Number.isFinite(settings.tariff) &&
+    settings.tariff >= 0 &&
+    typeof settings.region === "string" &&
+    settings.region in EMISSION_FACTORS &&
+    typeof settings.emissionFactor === "number" &&
+    Number.isFinite(settings.emissionFactor) &&
+    settings.emissionFactor >= 0
+  );
+}
+
 export default function Root() {
   const [devices, setDevices] = useState<Device[]>(() => {
     try {
@@ -39,7 +58,28 @@ export default function Root() {
       return starterDevices;
     }
   });
+
+  const [settings, setSettings] = useState<EnergySettings>(() => {
+    try {
+      const saved = localStorage.getItem("COCO-settings");
+
+      if (!saved) {
+        return DEFAULT_SETTINGS;
+      }
+
+      const parsed: unknown = JSON.parse(saved);
+
+      return isEnergySettings(parsed) ? parsed : DEFAULT_SETTINGS;
+    } catch {
+      return DEFAULT_SETTINGS;
+    }
+  });
+
   const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    localStorage.setItem("COCO-settings", JSON.stringify(settings));
+  }, [settings]);
 
   useEffect(() => {
     localStorage.setItem("COCO-devices", JSON.stringify(devices));
@@ -53,8 +93,8 @@ export default function Root() {
   const energy = devices.reduce((sum, item) => sum + energyFor(item), 0);
   const totals = {
     energy,
-    emission: energy * EMISSION_FACTOR,
-    cost: energy * ELECTRICITY_TARIFF,
+    emission: energy * settings.emissionFactor,
+    cost: energy * settings.tariff,
   };
 
   return (
@@ -83,7 +123,15 @@ export default function Root() {
       </header>
 
       <main>
-        <Outlet context={{ devices, setDevices, totals } satisfies AppContext} />
+        <Outlet
+          context={{
+            devices,
+            setDevices,
+            settings,
+            setSettings,
+            totals,
+          } satisfies AppContext}
+        />
       </main>
 
       <footer className="site-footer">

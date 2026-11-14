@@ -37,7 +37,7 @@ export default function DevicesPage() {
   return (
     <div className="page-wrap">
       <div className="page-heading">
-        <div><span className="eyebrow">Inventaris energi</span><h1>Perangkat elektronik</h1><p>Kelola daya dan pola penggunaan perangkat yang ingin kamu hitung.</p></div>
+        <div><h1>Perangkat elektronik</h1><p>Kelola daya dan pola penggunaan perangkat yang ingin kamu hitung.</p></div>
         <button className="primary-button" onClick={() => setShowForm(true)}><Icon name="plus" size={17} /> Tambah perangkat</button>
       </div>
       <SummaryCards />

@@ -34,13 +34,86 @@ export default function LandingPage() {
       </section>
 
       <div className="energy-ticker" aria-label="Prinsip COCO">
-        <div>
-          <span>Ukur konsumsi</span><i></i>
-          <span>Pahami emisi</span><i></i>
-          <span>Uji kebiasaan</span><i></i>
-          <span>Kurangi dampak</span><i></i>
-          <span>Ukur konsumsi</span><i></i>
-          <span>Pahami emisi</span>
+        <div className="ticker-track" aria-hidden="true">
+          <div className="ticker-item">
+            <span>Ukur konsumsi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Pahami emisi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Uji kebiasaan</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Kurangi dampak</span><i></i>
+          </div>
+
+          <div className="ticker-item">
+            <span>Ukur konsumsi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Pahami emisi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Uji kebiasaan</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Kurangi dampak</span><i></i>
+          </div>
+
+          <div className="ticker-item">
+            <span>Ukur konsumsi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Pahami emisi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Uji kebiasaan</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Kurangi dampak</span><i></i>
+          </div>
+        </div>
+
+        <div className="ticker-track" aria-hidden="true">
+          <div className="ticker-item">
+            <span>Ukur konsumsi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Pahami emisi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Uji kebiasaan</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Kurangi dampak</span><i></i>
+          </div>
+
+          <div className="ticker-item">
+            <span>Ukur konsumsi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Pahami emisi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Uji kebiasaan</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Kurangi dampak</span><i></i>
+          </div>
+
+          <div className="ticker-item">
+            <span>Ukur konsumsi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Pahami emisi</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Uji kebiasaan</span><i></i>
+          </div>
+          <div className="ticker-item">
+            <span>Kurangi dampak</span><i></i>
+          </div>
         </div>
       </div>
 
@@ -138,11 +211,10 @@ export default function LandingPage() {
       </section>
 
       <section className="green-principles">
-        <span className="landing-section-number">Didesain dengan prinsip green software</span>
+        <span className="landing-section-number">Didesain dengan prinsip keberlanjutan</span>
         <div>
-          <p>Tanpa video berat.</p>
-          <p>Tanpa pelacakan pengguna.</p>
-          <p>Data tetap di perangkatmu.</p>
+          <p>Tanpa aset berat.</p>
+          <p>Data tersimpan di perangkatmu.</p>
           <p>Tema default gelap.</p>
         </div>
       </section>

@@ -1,6 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { useAppData } from "./routes";
-import { ELECTRICITY_TARIFF, EMISSION_FACTOR } from "../shared/shared";
 import { Link } from "react-router";
 import { Icon } from "../shared/icon";
 import { energyFor } from "../shared/energyFor";
@@ -8,7 +7,7 @@ import { formatNumber } from "../shared/formatNumber";
 import { formatCurrency } from "../shared/formatCurrency";
 
 export default function SimulationPage() {
-  const { devices, totals } = useAppData();
+  const { devices, totals, settings } = useAppData();
   const [selected, setSelected] = useState<number[]>(() => devices.map((device) => device.id));
   const [hours, setHours] = useState<Record<number, number>>(() =>
     Object.fromEntries(devices.map((device) => [device.id, Math.max(0, device.hours - 1)])),
@@ -47,7 +46,7 @@ export default function SimulationPage() {
   return (
     <div className="page-wrap simulation-page">
       <div className="page-heading">
-        <div><span className="eyebrow">Skenario personal</span><h1>Simulasi hemat energi</h1><p>Pilih perangkat yang ingin disesuaikan, lalu tentukan durasi baru untuk masing-masing perangkat.</p></div>
+        <div><h1>Simulasi hemat energi</h1><p>Pilih perangkat yang ingin disesuaikan, lalu tentukan durasi baru untuk masing-masing perangkat.</p></div>
       </div>
       {devices.length === 0 ? (
         <section className="empty-page"><Icon name="bulb" size={32} /><h2>Belum ada perangkat untuk disimulasikan</h2><p>Tambahkan minimal satu perangkat terlebih dahulu.</p><Link className="primary-button" to="/perangkat?baru=1">Tambah perangkat</Link></section>
@@ -95,7 +94,7 @@ export default function SimulationPage() {
                       value={nextCount}
                       onChange={(event) => setCount({ ...count, [device.id]: Number(event.target.value) })}
                       style={{ "--progress": `${(nextCount / 100) * 100}%` } as CSSProperties} />
-                      
+
                     <div className="device-change">
                       <span>{formatNumber(currentEnergy)} kWh</span>
                       <span className={saving >= 0 ? "saving-positive" : "saving-negative"}>{saving >= 0 ? "Hemat" : "Tambah"} {formatNumber(Math.abs(saving))} kWh</span>
@@ -119,8 +118,15 @@ export default function SimulationPage() {
               <span>{savedEnergy >= 0 ? "Potensi penghematan per bulan" : "Perkiraan tambahan per bulan"}</span>
               <strong>{formatNumber(Math.abs(savedEnergy))} kWh</strong>
               <div className="saving-meta">
-                <span><Icon name="wallet" size={16} /> {formatCurrency(Math.abs(savedEnergy) * ELECTRICITY_TARIFF)}</span>
-                <span><Icon name="leaf" size={16} /> {formatNumber(Math.abs(savedEnergy) * EMISSION_FACTOR)} kg CO₂e</span>
+                <span>
+                  <Icon name="wallet" size={16} />{" "}
+                  {formatCurrency(Math.abs(savedEnergy) * settings.tariff)}
+                </span>
+
+                <span>
+                  <Icon name="leaf" size={16} />{" "}
+                  {formatNumber(Math.abs(savedEnergy) * settings.emissionFactor)} kg CO₂e
+                </span>
               </div>
             </div>
             <div className="scenario-score"><span>Perubahan konsumsi</span><strong>{savingPercent > 0 ? "−" : savingPercent < 0 ? "+" : ""}{formatNumber(Math.abs(savingPercent))}%</strong></div>

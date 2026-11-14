@@ -13,9 +13,6 @@ export default function DashboardPage() {
     <div className="dashboard-page">
       <section className="hero">
         <div className="hero-copy">
-          <span className="eyebrow">
-            Energi lebih bijak, bumi lebih baik
-          </span>
           <h1>
             Kenali jejak energi
             <br />

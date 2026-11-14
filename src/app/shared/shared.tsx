@@ -27,5 +27,29 @@ export type Device = {
   icon: IconName;
 };
 
-export const EMISSION_FACTOR = 0.82;
-export const ELECTRICITY_TARIFF = 1444.7;
+export type EmissionRegion =
+  | "Jawa-Madura-Bali"
+  | "Sumatera"
+  | "Kalimantan"
+  | "Sulawesi"
+  | "Maluku-Papua";
+
+export type EnergySettings = {
+  tariff: number;
+  region: EmissionRegion;
+  emissionFactor: number;
+};
+
+export const EMISSION_FACTORS: Record<EmissionRegion, number> = {
+  "Jawa-Madura-Bali": 0.87,
+  Sumatera: 0.75,
+  Kalimantan: 0.98,
+  Sulawesi: 0.71,
+  "Maluku-Papua": 0.90,
+};
+
+export const DEFAULT_SETTINGS: EnergySettings = {
+  tariff: 1445,
+  region: "Jawa-Madura-Bali",
+  emissionFactor: EMISSION_FACTORS["Jawa-Madura-Bali"],
+};
